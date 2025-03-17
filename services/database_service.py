@@ -1,12 +1,13 @@
 import logging
-import pandas as pd
+from typing import List, Dict
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from models.database import SessionLocal
+from utils.async_utils import batch_process
 
 logger = logging.getLogger("DatabaseService")
 
-def insert_records_safely(table_name: str, records: List[Dict[str, Any]]) -> bool:
+async def insert_records_safely(table_name: str, records: List[Dict[str, Any]]) -> bool:
     """
     Insere registros no banco de dados de forma segura (proteção contra SQL injection).
     
@@ -19,12 +20,17 @@ def insert_records_safely(table_name: str, records: List[Dict[str, Any]]) -> boo
     """
     try:
         db = SessionLocal()
+        tasks = []
+        
         for record in records:
             # Usa SQLAlchemy para evitar SQL injection
             columns = ", ".join(record.keys())
             values = ", ".join([f":{key}" for key in record.keys()])
             query = text(f"INSERT INTO {table_name} ({columns}) VALUES ({values})")
-            db.execute(query, record)
+            tasks.append(db.execute(query, record))
+        
+        # Processa as tarefas em lotes
+        await batch_process(tasks)
         db.commit()
         return True
     except SQLAlchemyError as e:
