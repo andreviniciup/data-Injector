@@ -1,0 +1,126 @@
+2025-03-17 17:14:40,806 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-17 17:14:40,806 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-17 17:14:40,827 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:14:41,376 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:14:41,383 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:14:50,620 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:14:50] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-17 17:14:50,871 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:14:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-17 17:29:30,552 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-17 17:29:30,552 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-17 17:29:30,558 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:29:31,093 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:29:31,096 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:29:35,200 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:29:35] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 17:29:35,411 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:29:35] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-03-17 17:29:35,425 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:29:35] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-03-17 17:29:35,525 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:29:35] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=CoQdxnuNf2tZOCT0C5hI HTTP/1.1" 200 -
+2025-03-17 17:29:35,825 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:29:35] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-03-17 17:30:13,113 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:30:13,113 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:30:13,286 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:30:13,821 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:30:13,821 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:30:20,081 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:30:20,082 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:30:20,088 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:30:20,944 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:41:09,675 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-17 17:41:09,675 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-17 17:41:09,687 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:41:10,189 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:41:10,189 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:41:21,420 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 17:41:21,709 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:21] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-17 17:41:21,718 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:21] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-17 17:41:21,781 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:21] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=tHjD5j1ZHoFGg2vXA9UN HTTP/1.1" 200 -
+2025-03-17 17:41:29,466 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:29] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 17:41:29,570 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:29] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-17 17:41:29,570 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:29] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-17 17:41:29,664 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:29] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=tHjD5j1ZHoFGg2vXA9UN HTTP/1.1[0m" 304 -
+2025-03-17 17:41:55,613 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:55] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 17:41:55,766 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:55] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-17 17:41:55,780 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:55] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-17 17:41:55,872 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:41:55] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png&s=tHjD5j1ZHoFGg2vXA9UN HTTP/1.1[0m" 304 -
+2025-03-17 17:45:30,509 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\template\\__init__.py', reloading
+2025-03-17 17:45:30,956 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:45:31,601 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:45:31,601 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:45:34,806 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\services\\__init__.py', reloading
+2025-03-17 17:45:35,753 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:45:36,542 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:45:36,542 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:45:41,959 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\__init__.py', reloading
+2025-03-17 17:45:42,705 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:45:43,588 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:45:43,593 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:45:47,063 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\models\\__init__.py', reloading
+2025-03-17 17:45:47,752 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:45:48,538 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:45:48,541 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:45:52,636 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\utils\\__init__.py', reloading
+2025-03-17 17:45:53,713 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 17:45:54,473 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 17:45:54,476 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 17:46:00,417 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:46:00] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 17:46:00,759 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:46:00] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-17 17:46:00,759 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:46:00] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-17 17:46:00,793 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:46:00] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=R8hzlOpFAXldIfmzGjh5 HTTP/1.1" 200 -
+2025-03-17 17:46:00,910 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 17:46:00] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-17 17:47:51,617 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:47:51,623 - werkzeug - INFO -  * Detected change in 'c:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\routes\\api.py', reloading
+2025-03-17 17:47:51,812 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:00:30,564 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-17 18:00:30,564 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-17 18:00:30,577 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:00:31,094 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:00:31,096 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:00:37,889 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py', reloading
+2025-03-17 18:00:37,891 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\templating.py', reloading
+2025-03-17 18:00:37,892 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\jinja2\\environment.py', reloading
+2025-03-17 18:00:37,895 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\jinja2\\loaders.py', reloading
+2025-03-17 18:00:37,905 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:37] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 18:00:38,267 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:00:39,119 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:00:39,119 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:00:39,178 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:39] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-17 18:00:41,750 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-03-17 18:00:41,789 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:41] "[36mGET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-03-17 18:00:41,789 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:41] "[36mGET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-03-17 18:00:41,853 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:41] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=71ooyKsljYpbZAszapp7 HTTP/1.1" 200 -
+2025-03-17 18:00:41,911 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:00:41] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-03-17 18:04:26,623 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\template\\__init__.py', reloading
+2025-03-17 18:04:26,812 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:04:27,380 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:04:27,394 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:04:54,694 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:04:54] "GET / HTTP/1.1" 200 -
+2025-03-17 18:05:07,608 - FileProcessor - ERROR - Erro ao extrair o arquivo ZIP: name 'zipfile' is not defined
+2025-03-17 18:05:07,610 - ErrorHandler - ERROR - Falha ao extrair arquivos
+2025-03-17 18:05:07,611 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:05:07] "POST /upload HTTP/1.1" 200 -
+2025-03-17 18:05:08,982 - FileProcessor - ERROR - Erro ao extrair o arquivo ZIP: name 'zipfile' is not defined
+2025-03-17 18:05:08,985 - ErrorHandler - ERROR - Falha ao extrair arquivos
+2025-03-17 18:05:08,986 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:05:08] "POST /upload HTTP/1.1" 200 -
+2025-03-17 18:07:23,157 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\utils\\file_utils.py', reloading
+2025-03-17 18:07:23,302 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\error_handler.py', reloading
+2025-03-17 18:07:23,929 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:07:24,596 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:07:24,596 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:07:28,068 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\file_processor.py', reloading
+2025-03-17 18:07:28,074 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\file_processor.py', reloading
+2025-03-17 18:07:28,079 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\file_processor.py', reloading
+2025-03-17 18:07:28,716 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:07:29,279 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:07:29,291 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:07:32,862 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\file_processor.py', reloading
+2025-03-17 18:07:32,870 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\Desktop\\dev\\BPA-SUS\\data-injector\\app\\services\\file_processor.py', reloading
+2025-03-17 18:07:33,420 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-17 18:07:34,045 - werkzeug - WARNING -  * Debugger is active!
+2025-03-17 18:07:34,045 - werkzeug - INFO -  * Debugger PIN: 121-772-770
+2025-03-17 18:07:36,406 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmpc9t_0pk7\tb_tuss.txt
+2025-03-17 18:07:36,406 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmpc9t_0pk7\tb_tuss_layout.txt
+2025-03-17 18:07:36,430 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-17 18:07:36,430 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-17 18:07:36,436 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:07:36] "POST /upload HTTP/1.1" 200 -

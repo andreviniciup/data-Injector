@@ -1,9 +1,9 @@
 import logging
-from typing import List, Dict
+from typing import List, Dict, Any  # Adicione Any aqui
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-from models.database import SessionLocal
-from utils.async_utils import batch_process
+from app.models.database import SessionLocal
+from app.utils.async_utils import batch_process
 
 logger = logging.getLogger("DatabaseService")
 

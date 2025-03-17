@@ -1,19 +1,15 @@
+import os
+import zipfile 
+import tempfile
 import logging
 from typing import Tuple, Optional
-from utils.file_utils import create_temp_dir, remove_temp_dir, is_valid_zip
+from app.utils.file_utils import create_temp_dir, remove_temp_dir, is_valid_zip
 
 logger = logging.getLogger("FileProcessor")
 
 def extract_zip_file(zip_path: str, extract_to: str = "temp") -> Tuple[Optional[str], Optional[str]]:
     """
     Extrai o conteúdo de um arquivo ZIP e identifica os arquivos de dados e layout.
-    
-    Args:
-        zip_path: Caminho para o arquivo ZIP.
-        extract_to: Diretório de extração.
-        
-    Returns:
-        Tuple contendo os caminhos para o arquivo de dados e o arquivo de layout.
     """
     try:
         if not is_valid_zip(zip_path):

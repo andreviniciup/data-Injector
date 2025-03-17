@@ -1,15 +1,24 @@
-from flask import Flask, request, jsonify
-from services.file_processor import extract_zip_file
-from services.data_validator import parse_layout_file
-from services.database_service import insert_records_safely
-from services.error_handler import ErrorHandler
+from flask import Blueprint, request, jsonify, render_template
+from app.services.file_processor import extract_zip_file
+from app.services.data_validator import parse_layout_file
+from app.services.database_service import insert_records_safely
+from app.services.error_handler import ErrorHandler
 import tempfile
 import os
 
-app = Flask(__name__)
+# Cria um Blueprint para as rotas da API
+api_bp = Blueprint('api', __name__)
+
 error_handler = ErrorHandler()
 
-@app.route('/upload', methods=['POST'])
+@api_bp.route('/')
+def index():
+    """
+    View para renderizar a página inicial (index.html).
+    """
+    return render_template('index.html')
+
+@api_bp.route('/upload', methods=['POST'])
 async def upload_file():
     if 'file' not in request.files:
         error_handler.log_error("Nenhum arquivo enviado")

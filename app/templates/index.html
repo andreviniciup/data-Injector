@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Arquivo ZIP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos fornecidos por você */
+        body {
+            font-family: "Nunito", Arial, sans-serif;
+            background-color: #eaf6fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #1A1A1A;
+            margin-top: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 20px auto;
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E5E5;
+            border-radius: 8px;
+            background-color: #F8F8F8;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            appearance: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3F9DAC;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #358D92;
+        }
+
+        .error {
+            color: #D9534F;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload de Arquivo ZIP</h1>
+    <div class="welcome-message">
+        Faça o upload do arquivo ZIP contendo os dados e o layout.
+    </div>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="file">Selecione o arquivo ZIP:</label>
+        <input type="file" name="file" id="file" accept=".zip" required>
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="message" class="message"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            const fileInput = document.getElementById('file');
+            const messageDiv = document.getElementById('message');
+
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageDiv.textContent = result.message;
+                    messageDiv.className = 'message success';
+                } else {
+                    messageDiv.textContent = result.message;
+                    messageDiv.className = 'message error-message';
+                }
+            } catch (error) {
+                messageDiv.textContent = 'Erro ao processar o arquivo. Tente novamente.';
+                messageDiv.className = 'message error-message';
+            }
+
+            messageDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
