@@ -284,3 +284,16 @@
 2025-03-27 17:42:48,768 - werkzeug - WARNING -  * Debugger is active!
 2025-03-27 17:42:48,774 - werkzeug - INFO -  * Debugger PIN: 215-146-179
 2025-03-27 17:42:49,476 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\coercions.py', reloading
+2025-03-27 18:28:07,574 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+2025-03-27 18:28:07,574 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 18:28:07,600 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 18:28:09,083 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 18:28:09,093 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 18:28:12,046 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:28:12] "GET / HTTP/1.1" 200 -
+2025-03-27 18:28:13,154 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:28:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-27 18:28:18,704 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmp_6v8okwy\tb_tuss.txt
+2025-03-27 18:28:18,705 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmp_6v8okwy\tb_tuss_layout.txt
+2025-03-27 18:28:18,759 - DataValidator - INFO - Layout analisado: 2 colunas encontradas
+2025-03-27 18:28:18,898 - DataValidator - ERROR - Número de colunas diferente
+2025-03-27 18:28:18,901 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:28:18] "POST /upload HTTP/1.1" 200 -
