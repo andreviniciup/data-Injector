@@ -2,8 +2,15 @@ import os
 import zipfile 
 import tempfile
 import logging
-from typing import Tuple, Optional
-from app.utils.file_utils import create_temp_dir, remove_temp_dir, is_valid_zip
+from typing import Tuple, Optional, List, Dict, Any
+from app.utils.file_utils import create_temp_dir, remove_temp_dir, is_valid_zip, get_file_name
+from app.services.data_validator import (
+    parse_layout_file, 
+    validate_database_schema, 
+    validate_fixed_width_data,
+    parse_fixed_width_data
+)
+from app.services.database_service import insert_records_safely
 
 logger = logging.getLogger("FileProcessor")
 
@@ -11,6 +18,7 @@ def extract_zip_file(zip_path: str, extract_to: str = "temp") -> Tuple[Optional[
     """
     Extrai o conteúdo de um arquivo ZIP e identifica os arquivos de dados e layout.
     """
+    temp_dir = None
     try:
         if not is_valid_zip(zip_path):
             logger.error(f"Arquivo ZIP inválido ou não encontrado: {zip_path}")
@@ -57,3 +65,66 @@ def extract_zip_file(zip_path: str, extract_to: str = "temp") -> Tuple[Optional[
         if temp_dir:
             remove_temp_dir(temp_dir)
         return None, None
+
+def process_file_upload(zip_path: str) -> Dict[str, Any]:
+    """
+    Processa o upload de um arquivo ZIP, realizando validações e inserção no banco.
+    
+    Args:
+        zip_path: Caminho do arquivo ZIP
+        
+    Returns:
+        Dicionário com resultado do processamento
+    """
+    try:
+        # Extrai arquivos do ZIP
+        data_file, layout_file = extract_zip_file(zip_path)
+        
+        if not data_file or not layout_file:
+            return {
+                "success": False, 
+                "message": "Falha ao extrair arquivos do ZIP"
+            }
+        
+        # Lê layout
+        layout_columns = parse_layout_file(layout_file)
+        if not layout_columns:
+            return {
+                "success": False, 
+                "message": "Falha ao interpretar arquivo de layout"
+            }
+        
+        # Identifica nome da tabela
+        table_name = get_file_name(data_file).replace('_layout', '')
+        
+        # Valida schema do banco de dados
+        if not validate_database_schema(table_name, layout_columns):
+            return {
+                "success": False, 
+                "message": "Estrutura da tabela incompatível com o layout"
+            }
+        
+        # Valida dados de largura fixa
+        if not validate_fixed_width_data(data_file, layout_columns):
+            return {
+                "success": False, 
+                "message": "Dados inválidos no arquivo"
+            }
+        
+        # Converte dados para lista de registros
+        records = parse_fixed_width_data(data_file, layout_columns)
+        
+        # Insere registros no banco
+        success = insert_records_safely(table_name, records)
+        
+        return {
+            "success": success, 
+            "message": "Processamento concluído com sucesso" if success else "Falha ao inserir registros"
+        }
+    
+    except Exception as e:
+        logger.error(f"Erro durante o processamento: {str(e)}")
+        return {
+            "success": False, 
+            "message": f"Erro inesperado: {str(e)}"
+        }

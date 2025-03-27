@@ -124,3 +124,163 @@
 2025-03-17 18:07:36,430 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
 2025-03-17 18:07:36,430 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
 2025-03-17 18:07:36,436 - werkzeug - INFO - 127.0.0.1 - - [17/Mar/2025 18:07:36] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:27:00,394 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-27 17:27:00,395 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 17:27:00,422 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:27:01,612 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:27:01,620 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 17:27:01,690 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\markdown_it\\main.py', reloading
+2025-03-27 17:27:01,732 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\markupsafe\\__init__.py', reloading
+2025-03-27 17:27:01,759 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\__init__.py', reloading
+2025-03-27 17:27:01,791 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\_decode.py', reloading
+2025-03-27 17:27:01,819 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\_encode.py', reloading
+2025-03-27 17:27:01,836 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\_format.py', reloading
+2025-03-27 17:27:01,859 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\_parse.py', reloading
+2025-03-27 17:27:01,887 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\mdurl\\_url.py', reloading
+2025-03-27 17:27:01,985 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\moderngl_window\\__init__.py', reloading
+2025-03-27 17:27:02,006 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\multipledispatch\\__init__.py', reloading
+2025-03-27 17:27:02,136 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy\\_typing\\_extended_precision.py', reloading
+2025-03-27 17:27:02,893 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:27:04,049 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:27:04,054 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 17:27:04,102 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fft\\_fftlog_backend.py', reloading
+2025-03-27 17:27:04,130 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fft\\_helper.py', reloading
+2025-03-27 17:27:04,153 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fft\\_backend.py', reloading
+2025-03-27 17:27:04,175 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fft\\_pocketfft\\helper.py', reloading
+2025-03-27 17:27:04,200 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fftpack\\__init__.py', reloading
+2025-03-27 17:27:04,234 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fftpack\\_basic.py', reloading
+2025-03-27 17:27:04,260 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fftpack\\_pseudo_diffs.py', reloading
+2025-03-27 17:27:04,285 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fftpack\\_helper.py', reloading
+2025-03-27 17:27:04,320 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\fftpack\\_realtransforms.py', reloading
+2025-03-27 17:27:04,380 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\integrate\\__init__.py', reloading
+2025-03-27 17:27:04,417 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\integrate\\_quadrature.py', reloading
+2025-03-27 17:27:04,449 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\integrate\\_odepack_py.py', reloading
+2025-03-27 17:27:04,482 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\integrate\\_quadpack_py.py', reloading
+2025-03-27 17:27:04,510 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\integrate\\_ode.py', reloading
+2025-03-27 17:27:04,540 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\__init__.py', reloading
+2025-03-27 17:27:04,570 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_interpolate.py', reloading
+2025-03-27 17:27:04,623 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_fitpack_py.py', reloading
+2025-03-27 17:27:04,679 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_fitpack2.py', reloading
+2025-03-27 17:27:04,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_rbfinterp.py', reloading
+2025-03-27 17:27:04,744 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_polyint.py', reloading
+2025-03-27 17:27:04,772 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_cubic.py', reloading
+2025-03-27 17:27:04,799 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_ndgriddata.py', reloading
+2025-03-27 17:27:04,841 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_bsplines.py', reloading
+2025-03-27 17:27:04,879 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_pade.py', reloading
+2025-03-27 17:27:04,911 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\interpolate\\_rgi.py', reloading
+2025-03-27 17:27:04,954 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\io\\__init__.py', reloading
+2025-03-27 17:27:05,006 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\linalg\\__init__.py', reloading
+2025-03-27 17:27:05,045 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\linalg\\_misc.py', reloading
+2025-03-27 17:27:05,408 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:27:06,493 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:27:06,497 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 17:27:06,567 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_fir_filter_design.py', reloading
+2025-03-27 17:27:06,610 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_ltisys.py', reloading
+2025-03-27 17:27:06,645 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_lti_conversion.py', reloading
+2025-03-27 17:27:06,691 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_signaltools.py', reloading
+2025-03-27 17:27:06,742 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_spectral_py.py', reloading
+2025-03-27 17:27:06,777 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_short_time_fft.py', reloading
+2025-03-27 17:27:06,803 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_wavelets.py', reloading
+2025-03-27 17:27:06,822 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_peak_finding.py', reloading
+2025-03-27 17:27:06,867 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\signal\\_czt.py', reloading
+2025-03-27 17:27:06,900 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\__init__.py', reloading
+2025-03-27 17:27:06,933 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_base.py', reloading
+2025-03-27 17:27:06,962 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_csr.py', reloading
+2025-03-27 17:27:06,989 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_csc.py', reloading
+2025-03-27 17:27:07,017 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_lil.py', reloading
+2025-03-27 17:27:07,047 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_dok.py', reloading
+2025-03-27 17:27:07,078 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_coo.py', reloading
+2025-03-27 17:27:07,109 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_dia.py', reloading
+2025-03-27 17:27:07,132 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_bsr.py', reloading
+2025-03-27 17:27:07,164 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_construct.py', reloading
+2025-03-27 17:27:07,190 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_extract.py', reloading
+2025-03-27 17:27:07,212 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\sparse\\_matrix_io.py', reloading
+2025-03-27 17:27:07,236 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\spatial\\__init__.py', reloading
+2025-03-27 17:27:07,266 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\spatial\\_kdtree.py', reloading
+2025-03-27 17:27:07,329 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\spatial\\_plotutils.py', reloading
+2025-03-27 17:27:07,372 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\special\\__init__.py', reloading
+2025-03-27 17:27:07,447 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\special\\_basic.py', reloading
+2025-03-27 17:27:07,509 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\special\\_sf_error.py', reloading
+2025-03-27 17:27:07,527 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\scipy\\special\\_logsumexp.py', reloading
+2025-03-27 17:27:07,705 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:27:08,800 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:27:08,805 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 17:27:08,841 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\cursor.py', reloading
+2025-03-27 17:27:08,886 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\reflection.py', reloading
+2025-03-27 17:27:08,924 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\url.py', reloading
+2025-03-27 17:27:08,959 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\inspection.py', reloading
+2025-03-27 17:27:08,980 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\pool\\__init__.py', reloading
+2025-03-27 17:27:09,007 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\pool\\impl.py', reloading
+2025-03-27 17:27:09,039 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\pool\\base.py', reloading
+2025-03-27 17:27:09,067 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\schema.py', reloading
+2025-03-27 17:27:09,102 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\ddl.py', reloading
+2025-03-27 17:27:09,175 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\schema.py', reloading
+2025-03-27 17:27:09,224 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\__init__.py', reloading
+2025-03-27 17:27:09,252 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\_typing.py', reloading
+2025-03-27 17:27:09,283 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\expression.py', reloading
+2025-03-27 17:27:09,341 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\selectable.py', reloading
+2025-03-27 17:27:09,386 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\_selectable_constructors.py', reloading
+2025-03-27 17:27:09,438 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\_elements_constructors.py', reloading
+2025-03-27 17:27:09,487 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\elements.py', reloading
+2025-03-27 17:27:09,538 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\cache_key.py', reloading
+2025-03-27 17:27:09,572 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\base.py', reloading
+2025-03-27 17:27:09,612 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\operators.py', reloading
+2025-03-27 17:27:09,652 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\dml.py', reloading
+2025-03-27 17:27:09,685 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\_dml_constructors.py', reloading
+2025-03-27 17:27:09,723 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\functions.py', reloading
+2025-03-27 17:27:09,761 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\lambdas.py', reloading
+2025-03-27 17:27:09,798 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\visitors.py', reloading
+2025-03-27 17:27:09,825 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\types.py', reloading
+2025-03-27 17:27:09,992 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:27:11,117 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:27:11,122 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 17:27:15,451 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:27:15] "GET / HTTP/1.1" 200 -
+2025-03-27 17:27:16,916 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:27:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-27 17:27:25,338 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmpzhlkp_u9\tb_tuss.txt
+2025-03-27 17:27:25,338 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmpzhlkp_u9\tb_tuss_layout.txt
+2025-03-27 17:27:25,353 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-27 17:27:25,353 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-27 17:27:25,367 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:27:25] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:27:27,184 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmpp3s_4bnf\tb_tuss.txt
+2025-03-27 17:27:27,185 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmpp3s_4bnf\tb_tuss_layout.txt
+2025-03-27 17:27:27,188 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-27 17:27:27,189 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-27 17:27:27,196 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:27:27] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:30:41,071 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmpq_88k7l7\tb_tuss.txt
+2025-03-27 17:30:41,072 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmpq_88k7l7\tb_tuss_layout.txt
+2025-03-27 17:30:41,074 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-27 17:30:41,075 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-27 17:30:41,079 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:30:41] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:30:45,335 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmplykw7f0p\tb_tuss.txt
+2025-03-27 17:30:45,336 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmplykw7f0p\tb_tuss_layout.txt
+2025-03-27 17:30:45,339 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-27 17:30:45,340 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-27 17:30:45,344 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:30:45] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:30:46,750 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:30:46] "GET / HTTP/1.1" 200 -
+2025-03-27 17:30:53,240 - FileProcessor - INFO - Arquivo de dados: C:\Users\andre\AppData\Local\Temp\tmpvpox0g0r\tb_tuss.txt
+2025-03-27 17:30:53,241 - FileProcessor - INFO - Arquivo de layout: C:\Users\andre\AppData\Local\Temp\tmpvpox0g0r\tb_tuss_layout.txt
+2025-03-27 17:30:53,244 - DataValidator - INFO - Layout analisado: 0 colunas encontradas
+2025-03-27 17:30:53,244 - ErrorHandler - ERROR - Falha ao interpretar arquivo de layout
+2025-03-27 17:30:53,250 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 17:30:53] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:32:05,511 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\__init__.py', reloading
+2025-03-27 17:32:05,546 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\deprecations.py', reloading
+2025-03-27 17:32:05,652 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\_collections.py', reloading
+2025-03-27 17:32:05,709 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\_py_collections.py', reloading
+2025-03-27 17:32:05,799 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\event\\__init__.py', reloading
+2025-03-27 17:32:05,823 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\event\\registry.py', reloading
+2025-03-27 17:32:05,853 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\log.py', reloading
+2025-03-27 17:32:05,927 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\typing.py', reloading
+2025-03-27 17:32:06,117 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\roles.py', reloading
+2025-03-27 17:32:06,232 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\annotation.py', reloading
+2025-03-27 17:32:06,286 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\util\\langhelpers.py', reloading
+2025-03-27 17:32:06,342 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\traversals.py', reloading
+2025-03-27 17:32:06,560 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:32:07,718 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:32:07,723 - werkzeug - INFO -  * Debugger PIN: 215-146-179
+2025-03-27 17:42:46,655 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\re\\__init__.py', reloading
+2025-03-27 17:42:46,710 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\typing.py', reloading
+2025-03-27 17:42:47,728 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 17:42:48,768 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 17:42:48,774 - werkzeug - INFO -  * Debugger PIN: 215-146-179
+2025-03-27 17:42:49,476 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\coercions.py', reloading
