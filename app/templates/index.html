@@ -6,94 +6,34 @@
     <title>Upload de Arquivo ZIP</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos fornecidos por você */
-        body {
-            font-family: "Nunito", Arial, sans-serif;
-            background-color: #eaf6fb;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            color: #1A1A1A;
-            margin-top: 20px;
-        }
-
-        .welcome-message {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        form {
-            max-width: 480px;
+        /* Estilos anteriores mantidos */
+        .results-container {
+            max-width: 600px;
             margin: 20px auto;
-            padding: 24px;
             background-color: white;
             border-radius: 8px;
+            padding: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-
-        label {
-            display: block;
-            font-size: 14px;
-            color: #1A1A1A;
-            margin-bottom: 8px;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #E5E5E5;
-            border-radius: 8px;
-            background-color: #F8F8F8;
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            appearance: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #3F9DAC;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #358D92;
-        }
-
-        .error {
-            color: #D9534F;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .message {
-            margin-top: 20px;
+        .table-result {
+            margin-bottom: 10px;
             padding: 10px;
             border-radius: 5px;
-            display: none;
-            text-align: center;
         }
-
-        .success {
+        .table-result.success {
             background-color: #d4edda;
             color: #155724;
         }
-
-        .error-message {
+        .table-result.error {
             background-color: #f8d7da;
             color: #721c24;
+        }
+        .unmatched-files {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -108,6 +48,11 @@
         <button type="submit">Enviar</button>
     </form>
     <div id="message" class="message"></div>
+    <div id="resultsContainer" class="results-container" style="display:none;">
+        <h2>Resultados do Processamento</h2>
+        <div id="processedTables"></div>
+        <div id="unmatchedFiles"></div>
+    </div>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async function (e) {
@@ -116,6 +61,16 @@
             const formData = new FormData();
             const fileInput = document.getElementById('file');
             const messageDiv = document.getElementById('message');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const processedTablesDiv = document.getElementById('processedTables');
+            const unmatchedFilesDiv = document.getElementById('unmatchedFiles');
+
+            // Reset previous results
+            messageDiv.textContent = '';
+            messageDiv.className = 'message';
+            processedTablesDiv.innerHTML = '';
+            unmatchedFilesDiv.innerHTML = '';
+            resultsContainer.style.display = 'none';
 
             formData.append('file', fileInput.files[0]);
 
@@ -128,8 +83,35 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    messageDiv.textContent = result.message;
+                    messageDiv.textContent = 'Upload processado com sucesso';
                     messageDiv.className = 'message success';
+
+                    // Display processed tables
+                    if (result.details.processed_tables) {
+                        result.details.processed_tables.forEach(table => {
+                            const tableDiv = document.createElement('div');
+                            tableDiv.className = `table-result ${table.status}`;
+                            tableDiv.innerHTML = `
+                                <strong>Tabela: ${table.table}</strong><br>
+                                Status: ${table.status === 'success' ? 'Processada com sucesso' : 'Erro'}
+                                ${table.status !== 'success' ? `<br>Mensagem: ${table.message}` : ''}
+                            `;
+                            processedTablesDiv.appendChild(tableDiv);
+                        });
+                    }
+
+                    // Display unmatched files
+                    if (result.details.unmatched_files && result.details.unmatched_files.length > 0) {
+                        const unmatchedDiv = document.createElement('div');
+                        unmatchedDiv.className = 'unmatched-files';
+                        unmatchedDiv.innerHTML = `
+                            <strong>Arquivos não correspondidos:</strong><br>
+                            ${result.details.unmatched_files.join(', ')}
+                        `;
+                        unmatchedFilesDiv.appendChild(unmatchedDiv);
+                    }
+
+                    resultsContainer.style.display = 'block';
                 } else {
                     messageDiv.textContent = result.message;
                     messageDiv.className = 'message error-message';

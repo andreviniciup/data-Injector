@@ -3,6 +3,8 @@ import zipfile
 import tempfile
 import logging
 from typing import Tuple, Optional, List, Dict, Any
+from sqlalchemy import text
+from app.models.database import SessionLocal
 from app.utils.file_utils import create_temp_dir, remove_temp_dir, is_valid_zip, get_file_name
 from app.services.data_validator import (
     parse_layout_file, 
@@ -11,18 +13,96 @@ from app.services.data_validator import (
     parse_fixed_width_data
 )
 from app.services.database_service import insert_records_safely
+from config import DATABASE_SCHEMA
 
 logger = logging.getLogger("FileProcessor")
 
-def extract_zip_file(zip_path: str, extract_to: str = "temp") -> Tuple[Optional[str], Optional[str]]:
+def get_database_tables() -> List[str]:
     """
-    Extrai o conteúdo de um arquivo ZIP e identifica os arquivos de dados e layout.
+    Recupera a lista de tabelas do banco de dados.
+    
+    Returns:
+        Lista de nomes de tabelas no esquema configurado.
+    """
+    try:
+        with SessionLocal() as session:
+            query = text("""
+                SELECT table_name 
+                FROM information_schema.tables 
+                WHERE table_schema = :schema
+            """)
+            
+            result = session.execute(query, {'schema': DATABASE_SCHEMA})
+            tables = [row.table_name for row in result]
+        
+        logger.info(f"Tabelas encontradas no banco de dados: {tables}")
+        return tables
+    
+    except Exception as e:
+        logger.error(f"Erro ao recuperar tabelas do banco de dados: {str(e)}")
+        return []
+
+def match_files_to_tables(extracted_files: List[str], database_tables: List[str]) -> Dict[str, Optional[str]]:
+    """
+    Encontra correspondências entre arquivos e tabelas do banco de dados.
+    
+    Args:
+        extracted_files: Lista de arquivos extraídos
+        database_tables: Lista de tabelas do banco de dados
+    
+    Returns:
+        Dicionário mapeando tabelas para arquivos de dados correspondentes
+    """
+    # Filtra apenas arquivos .txt que não são layouts
+    data_files = [f for f in extracted_files if f.endswith('.txt') and '_layout' not in f]
+    layout_files = [f for f in extracted_files if f.endswith('.txt') and '_layout' in f]
+    
+    table_file_matches = {}
+    unmatched_files = []
+    
+    for table in database_tables:
+        # Procura arquivo que corresponda ao nome da tabela
+        matching_data_file = next((f for f in data_files if table in f.lower()), None)
+        matching_layout_file = next((f for f in layout_files if table in f.lower()), None)
+        
+        if matching_data_file and matching_layout_file:
+            table_file_matches[table] = {
+                'data_file': matching_data_file,
+                'layout_file': matching_layout_file
+            }
+        else:
+            unmatched_files.append(table)
+    
+    # Remove arquivos correspondentes das listas
+    for match in table_file_matches.values():
+        if match['data_file'] in data_files:
+            data_files.remove(match['data_file'])
+        if match['layout_file'] in layout_files:
+            layout_files.remove(match['layout_file'])
+    
+    # Adiciona arquivos não correspondidos
+    unmatched_files.extend(data_files)
+    
+    logger.info(f"Tabelas correspondidas: {list(table_file_matches.keys())}")
+    logger.info(f"Arquivos/Tabelas não correspondidos: {unmatched_files}")
+    
+    return {
+        'matched_tables': table_file_matches,
+        'unmatched_files': unmatched_files
+    }
+
+def extract_zip_file(zip_path: str) -> Dict[str, Any]:
+    """
+    Extrai o conteúdo de um arquivo ZIP e identifica correspondências de tabelas.
+    
+    Returns:
+        Dicionário com arquivos correspondidos e não correspondidos
     """
     temp_dir = None
     try:
         if not is_valid_zip(zip_path):
             logger.error(f"Arquivo ZIP inválido ou não encontrado: {zip_path}")
-            return None, None
+            return {'error': 'Invalid ZIP file'}
         
         # Cria diretório temporário para extração
         temp_dir = create_temp_dir()
@@ -33,38 +113,24 @@ def extract_zip_file(zip_path: str, extract_to: str = "temp") -> Tuple[Optional[
         
         # Lista arquivos extraídos
         extracted_files = os.listdir(temp_dir)
-        txt_files = [f for f in extracted_files if f.endswith('.txt')]
         
-        if len(txt_files) < 2:
-            logger.error("Não foram encontrados os dois arquivos TXT esperados.")
-            remove_temp_dir(temp_dir)
-            return None, None
+        # Recupera tabelas do banco de dados
+        database_tables = get_database_tables()
         
-        # Identifica arquivos de dados e layout
-        data_file = None
-        layout_file = None
+        # Encontra correspondências
+        matches = match_files_to_tables(extracted_files, database_tables)
         
-        for file in txt_files:
-            if "_layout" in file:
-                layout_file = os.path.join(temp_dir, file)
-            else:
-                data_file = os.path.join(temp_dir, file)
+        # Adiciona informações do diretório temporário
+        matches['temp_dir'] = temp_dir
         
-        if not data_file or not layout_file:
-            logger.error("Não foi possível identificar os arquivos de dados e layout corretamente.")
-            remove_temp_dir(temp_dir)
-            return None, None
-        
-        logger.info(f"Arquivo de dados: {data_file}")
-        logger.info(f"Arquivo de layout: {layout_file}")
-        
-        return data_file, layout_file
+        logger.info(f"Correspondências encontradas: {matches}")
+        return matches
     
     except Exception as e:
         logger.error(f"Erro ao extrair o arquivo ZIP: {str(e)}")
         if temp_dir:
             remove_temp_dir(temp_dir)
-        return None, None
+        return {'error': str(e)}
 
 def process_file_upload(zip_path: str) -> Dict[str, Any]:
     """
@@ -77,49 +143,80 @@ def process_file_upload(zip_path: str) -> Dict[str, Any]:
         Dicionário com resultado do processamento
     """
     try:
-        # Extrai arquivos do ZIP
-        data_file, layout_file = extract_zip_file(zip_path)
+        # Extrai arquivos do ZIP e encontra correspondências
+        extraction_result = extract_zip_file(zip_path)
         
-        if not data_file or not layout_file:
+        if 'error' in extraction_result:
             return {
                 "success": False, 
-                "message": "Falha ao extrair arquivos do ZIP"
+                "message": extraction_result['error']
             }
         
-        # Lê layout
-        layout_columns = parse_layout_file(layout_file)
-        if not layout_columns:
-            return {
-                "success": False, 
-                "message": "Falha ao interpretar arquivo de layout"
-            }
+        # Prepara resultado final
+        results = {
+            "processed_tables": [],
+            "unmatched_files": extraction_result['unmatched_files']
+        }
         
-        # Identifica nome da tabela
-        table_name = get_file_name(data_file).replace('_layout', '')
+        # Processa cada tabela correspondida
+        for table, files in extraction_result.get('matched_tables', {}).items():
+            try:
+                data_file = os.path.join(extraction_result['temp_dir'], files['data_file'])
+                layout_file = os.path.join(extraction_result['temp_dir'], files['layout_file'])
+                
+                # Lê layout
+                layout_columns = parse_layout_file(layout_file)
+                if not layout_columns:
+                    results['processed_tables'].append({
+                        'table': table,
+                        'status': 'error',
+                        'message': 'Falha ao interpretar arquivo de layout'
+                    })
+                    continue
+                
+                # Valida schema do banco de dados
+                if not validate_database_schema(table, layout_columns):
+                    results['processed_tables'].append({
+                        'table': table,
+                        'status': 'error',
+                        'message': 'Estrutura da tabela incompatível com o layout'
+                    })
+                    continue
+                
+                # Valida dados de largura fixa
+                if not validate_fixed_width_data(data_file, layout_columns):
+                    results['processed_tables'].append({
+                        'table': table,
+                        'status': 'error',
+                        'message': 'Dados inválidos no arquivo'
+                    })
+                    continue
+                
+                # Converte dados para lista de registros
+                records = parse_fixed_width_data(data_file, layout_columns)
+                
+                # Insere registros no banco
+                success = insert_records_safely(table, records)
+                
+                results['processed_tables'].append({
+                    'table': table,
+                    'status': 'success' if success else 'error',
+                    'message': 'Processamento concluído com sucesso' if success else 'Falha ao inserir registros'
+                })
+            
+            except Exception as e:
+                results['processed_tables'].append({
+                    'table': table,
+                    'status': 'error',
+                    'message': f'Erro inesperado: {str(e)}'
+                })
         
-        # Valida schema do banco de dados
-        if not validate_database_schema(table_name, layout_columns):
-            return {
-                "success": False, 
-                "message": "Estrutura da tabela incompatível com o layout"
-            }
-        
-        # Valida dados de largura fixa
-        if not validate_fixed_width_data(data_file, layout_columns):
-            return {
-                "success": False, 
-                "message": "Dados inválidos no arquivo"
-            }
-        
-        # Converte dados para lista de registros
-        records = parse_fixed_width_data(data_file, layout_columns)
-        
-        # Insere registros no banco
-        success = insert_records_safely(table_name, records)
+        # Remove diretório temporário
+        remove_temp_dir(extraction_result['temp_dir'])
         
         return {
-            "success": success, 
-            "message": "Processamento concluído com sucesso" if success else "Falha ao inserir registros"
+            "success": all(table['status'] == 'success' for table in results['processed_tables']),
+            "details": results
         }
     
     except Exception as e:

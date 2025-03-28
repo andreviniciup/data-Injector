@@ -297,3 +297,22 @@
 2025-03-27 18:28:18,759 - DataValidator - INFO - Layout analisado: 2 colunas encontradas
 2025-03-27 18:28:18,898 - DataValidator - ERROR - Número de colunas diferente
 2025-03-27 18:28:18,901 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:28:18] "POST /upload HTTP/1.1" 200 -
+2025-03-27 18:48:28,956 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+2025-03-27 18:48:28,957 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 18:48:28,980 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 18:48:30,350 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 18:48:30,357 - werkzeug - INFO -  * Debugger PIN: 478-573-519
+2025-03-27 18:48:34,740 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:48:34] "GET / HTTP/1.1" 200 -
+2025-03-27 18:48:43,810 - FileProcessor - INFO - Tabelas encontradas no banco de dados: ['rl_procedimento_origem', 'tb_descricao_detalhe']
+2025-03-27 18:48:43,811 - FileProcessor - INFO - Tabelas correspondidas: ['rl_procedimento_origem', 'tb_descricao_detalhe']
+2025-03-27 18:48:43,811 - FileProcessor - INFO - Arquivos/Tabelas não correspondidos: ['layout.txt', 'rl_excecao_compatibilidade.txt', 'rl_procedimento_cid.txt', 'rl_procedimento_compativel.txt', 'rl_procedimento_comp_rede.txt', 'rl_procedimento_detalhe.txt', 'rl_procedimento_habilitacao.txt', 'rl_procedimento_incremento.txt', 'rl_procedimento_leito.txt', 'rl_procedimento_modalidade.txt', 'rl_procedimento_ocupacao.txt', 'rl_procedimento_registro.txt', 'rl_procedimento_regra_cond.txt', 'rl_procedimento_renases.txt', 'rl_procedimento_servico.txt', 'rl_procedimento_sia_sih.txt', 'rl_procedimento_tuss.txt', 'tb_cid.txt', 'tb_componente_rede.txt', 'tb_descricao.txt', 'tb_detalhe.txt', 'tb_financiamento.txt', 'tb_forma_organizacao.txt', 'tb_grupo.txt', 'tb_grupo_habilitacao.txt', 'tb_habilitacao.txt', 'tb_modalidade.txt', 'tb_ocupacao.txt', 'tb_procedimento.txt', 'tb_rede_atencao.txt', 'tb_registro.txt', 'tb_regra_condicionada.txt', 'tb_renases.txt', 'tb_rubrica.txt', 'tb_servico.txt', 'tb_servico_classificacao.txt', 'tb_sia_sih.txt', 'tb_sub_grupo.txt', 'tb_tipo_leito.txt', 'tb_tuss.txt']
+2025-03-27 18:48:43,812 - FileProcessor - INFO - Correspondências encontradas: {'matched_tables': {'rl_procedimento_origem': {'data_file': 'rl_procedimento_origem.txt', 'layout_file': 'rl_procedimento_origem_layout.txt'}, 'tb_descricao_detalhe': {'data_file': 'tb_descricao_detalhe.txt', 'layout_file': 'tb_descricao_detalhe_layout.txt'}}, 'unmatched_files': ['layout.txt', 'rl_excecao_compatibilidade.txt', 'rl_procedimento_cid.txt', 'rl_procedimento_compativel.txt', 'rl_procedimento_comp_rede.txt', 'rl_procedimento_detalhe.txt', 'rl_procedimento_habilitacao.txt', 'rl_procedimento_incremento.txt', 'rl_procedimento_leito.txt', 'rl_procedimento_modalidade.txt', 'rl_procedimento_ocupacao.txt', 'rl_procedimento_registro.txt', 'rl_procedimento_regra_cond.txt', 'rl_procedimento_renases.txt', 'rl_procedimento_servico.txt', 'rl_procedimento_sia_sih.txt', 'rl_procedimento_tuss.txt', 'tb_cid.txt', 'tb_componente_rede.txt', 'tb_descricao.txt', 'tb_detalhe.txt', 'tb_financiamento.txt', 'tb_forma_organizacao.txt', 'tb_grupo.txt', 'tb_grupo_habilitacao.txt', 'tb_habilitacao.txt', 'tb_modalidade.txt', 'tb_ocupacao.txt', 'tb_procedimento.txt', 'tb_rede_atencao.txt', 'tb_registro.txt', 'tb_regra_condicionada.txt', 'tb_renases.txt', 'tb_rubrica.txt', 'tb_servico.txt', 'tb_servico_classificacao.txt', 'tb_sia_sih.txt', 'tb_sub_grupo.txt', 'tb_tipo_leito.txt', 'tb_tuss.txt'], 'temp_dir': 'C:\\Users\\andre\\AppData\\Local\\Temp\\tmpsx9sr47b'}
+2025-03-27 18:48:43,839 - DataValidator - INFO - Layout analisado: 3 colunas encontradas
+2025-03-27 18:48:43,877 - DataValidator - INFO - Layout analisado: 3 colunas encontradas
+2025-03-27 18:48:43,894 - DataValidator - ERROR - Erro na validação dos dados: 'utf-8' codec can't decode byte 0xc1 in position 57: invalid start byte
+2025-03-27 18:48:44,004 - werkzeug - INFO -  * Detected change in 'C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tracemalloc.py', reloading
+2025-03-27 18:48:44,014 - werkzeug - INFO - 127.0.0.1 - - [27/Mar/2025 18:48:44] "POST /upload HTTP/1.1" 200 -
+2025-03-27 18:48:44,662 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-03-27 18:48:46,146 - werkzeug - WARNING -  * Debugger is active!
+2025-03-27 18:48:46,153 - werkzeug - INFO -  * Debugger PIN: 478-573-519
