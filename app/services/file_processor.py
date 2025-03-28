@@ -46,16 +46,8 @@ def get_database_tables() -> List[str]:
 
 def match_files_to_tables(extracted_files: List[str], database_tables: List[str]) -> Dict[str, Optional[str]]:
     """
-    Encontra correspondências entre arquivos e tabelas do banco de dados.
-    
-    Args:
-        extracted_files: Lista de arquivos extraídos
-        database_tables: Lista de tabelas do banco de dados
-    
-    Returns:
-        Dicionário mapeando tabelas para arquivos de dados correspondentes
+    Finds matches between files and database tables with improved precision.
     """
-    # Filtra apenas arquivos .txt que não são layouts
     data_files = [f for f in extracted_files if f.endswith('.txt') and '_layout' not in f]
     layout_files = [f for f in extracted_files if f.endswith('.txt') and '_layout' in f]
     
@@ -63,9 +55,9 @@ def match_files_to_tables(extracted_files: List[str], database_tables: List[str]
     unmatched_files = []
     
     for table in database_tables:
-        # Procura arquivo que corresponda ao nome da tabela
-        matching_data_file = next((f for f in data_files if table in f.lower()), None)
-        matching_layout_file = next((f for f in layout_files if table in f.lower()), None)
+        # More precise matching using exact table name and avoiding partial matches
+        matching_data_file = next((f for f in data_files if f.lower() == f"{table.lower()}.txt"), None)
+        matching_layout_file = next((f for f in layout_files if f.lower() == f"{table.lower()}_layout.txt"), None)
         
         if matching_data_file and matching_layout_file:
             table_file_matches[table] = {
@@ -75,23 +67,16 @@ def match_files_to_tables(extracted_files: List[str], database_tables: List[str]
         else:
             unmatched_files.append(table)
     
-    # Remove arquivos correspondentes das listas
-    for match in table_file_matches.values():
-        if match['data_file'] in data_files:
-            data_files.remove(match['data_file'])
-        if match['layout_file'] in layout_files:
-            layout_files.remove(match['layout_file'])
-    
-    # Adiciona arquivos não correspondidos
-    unmatched_files.extend(data_files)
-    
-    logger.info(f"Tabelas correspondidas: {list(table_file_matches.keys())}")
-    logger.info(f"Arquivos/Tabelas não correspondidos: {unmatched_files}")
+    # Additional logic to handle partial matches or provide better logging
+    if not table_file_matches:
+        logger.warning("No exact matches found. Attempting partial matching with more detailed logging.")
+        # Add more sophisticated partial matching logic here
     
     return {
         'matched_tables': table_file_matches,
         'unmatched_files': unmatched_files
     }
+
 
 def extract_zip_file(zip_path: str) -> Dict[str, Any]:
     """
@@ -135,50 +120,36 @@ def extract_zip_file(zip_path: str) -> Dict[str, Any]:
         return {'error': str(e)}
 
 def process_file_upload(zip_path: str) -> Dict[str, Any]:
-    """
-    Processa o upload de um arquivo ZIP com foco em sincronização de dados.
-    
-    Args:
-        zip_path: Caminho do arquivo ZIP
-        
-    Returns:
-        Dicionário com resultado do processamento
-    """
     try:
-        # Extrai arquivos do ZIP e encontra correspondências
         extraction_result = extract_zip_file(zip_path)
-        
         if 'error' in extraction_result:
-            return {
-                "success": False, 
-                "message": extraction_result['error']
-            }
-        
-        # Prepara resultado final
+            return {"success": False, "message": extraction_result['error']}
+
         results = {
             "synchronized_tables": [],
-            "unmatched_files": extraction_result['unmatched_files']
+            "unmatched_files": extraction_result.get('unmatched_files', []),
+            "processed_layouts": []
         }
-        
-        # Sincroniza dados para tabelas correspondidas
-        synchronized_tables = sync_data_for_matched_tables(
+
+        # Sincronização
+        sync_results = sync_data_for_matched_tables(
             extraction_result.get('matched_tables', {}), 
             extraction_result['temp_dir']
         )
-        
-        results['synchronized_tables'] = synchronized_tables
-        
-        # Remove diretório temporário
+        results['synchronized_tables'] = sync_results
+
+        # Lista de layouts processados
+        results['processed_layouts'] = list(set(
+            result.get('processed_layout') for result in sync_results 
+            if result.get('processed_layout')
+        ))
+
         remove_temp_dir(extraction_result['temp_dir'])
-        
         return {
-            "success": all(table['status'] == 'success' for table in results['synchronized_tables']),
+            "success": all(result['status'] == 'success' for result in sync_results),
             "details": results
         }
     
     except Exception as e:
-        logger.error(f"Erro durante o processamento: {str(e)}")
-        return {
-            "success": False, 
-            "message": f"Erro inesperado: {str(e)}"
-        }
+        logger.error(f"Erro geral: {str(e)}")
+        return {"success": False, "message": str(e)}

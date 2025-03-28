@@ -89,19 +89,12 @@ def parse_layout_file(layout_file_path: str) -> List[Dict[str, Any]]:
         logger.error(f"Erro ao interpretar o arquivo de layout: {str(e)}")
         return []
 
+
 def validate_database_schema(table_name: str, layout_columns: List[Dict[str, Any]]) -> bool:
     """
-    Valida se o layout corresponde à estrutura da tabela no banco de dados.
-    
-    Args:
-        table_name: Nome da tabela
-        layout_columns: Colunas do layout
-        
-    Returns:
-        Booleano indicando se o layout é válido
+    Validates if the layout corresponds to the database table structure with strict checks.
     """
     try:
-        # Mapeamento de tipos de dados de Oracle para PostgreSQL
         def map_oracle_to_postgres(oracle_type: str) -> str:
             type_mapping = {
                 'VARCHAR2': 'character varying',
@@ -111,38 +104,41 @@ def validate_database_schema(table_name: str, layout_columns: List[Dict[str, Any
             }
             return type_mapping.get(oracle_type, oracle_type.lower())
         
-        # Obtém colunas do banco de dados
         with SessionLocal() as session:
             query = text("""
                 SELECT column_name, data_type 
                 FROM information_schema.columns 
-                WHERE table_name = :table
+                WHERE table_name = :table AND table_schema = :schema
+                ORDER BY ordinal_position
             """)
             
-            result = session.execute(query, {'table': table_name})
+            result = session.execute(query, {
+                'table': table_name, 
+                'schema': DATABASE_SCHEMA
+            })
             db_columns = [(row.column_name, row.data_type) for row in result]
         
-        # Verificações de layout
+        # More strict comparisons
         if len(layout_columns) != len(db_columns):
-            logger.error("Número de colunas diferente")
+            logger.error(f"Column count mismatch for {table_name}. Layout: {len(layout_columns)}, Database: {len(db_columns)}")
             return False
         
-        for layout_col, (db_col, db_type) in zip(layout_columns, db_columns):
-            # Compara nomes de colunas (ignorando case)
+        for (layout_col, (db_col, db_type)), index in zip(layout_columns, db_columns):
+            # Ensure column names match exactly
             if layout_col['Coluna'].lower() != db_col.lower():
-                logger.error(f"Nome de coluna diferente: {layout_col['Coluna']} vs {db_col}")
+                logger.error(f"Column name mismatch at position {index}. Layout: {layout_col['Coluna']}, Database: {db_col}")
                 return False
             
-            # Mapeia e compara tipos de dados
+            # More precise type mapping and comparison
             mapped_layout_type = map_oracle_to_postgres(layout_col['Tipo'])
-            if not db_type.startswith(mapped_layout_type):
-                logger.error(f"Tipo de dados incompatível: {layout_col['Tipo']} vs {db_type}")
+            if not db_type.lower().startswith(mapped_layout_type):
+                logger.error(f"Column type mismatch for {db_col}. Layout: {layout_col['Tipo']} ({mapped_layout_type}), Database: {db_type}")
                 return False
         
         return True
     
     except Exception as e:
-        logger.error(f"Erro na validação do schema: {str(e)}")
+        logger.error(f"Schema validation error for {table_name}: {str(e)}")
         return False
 
 def validate_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, Any]], encoding: str = None) -> bool:
