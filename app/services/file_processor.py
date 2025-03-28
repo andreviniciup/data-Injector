@@ -2,6 +2,7 @@ import os
 import zipfile 
 import tempfile
 import logging
+import asyncio
 from typing import Tuple, Optional, List, Dict, Any
 from sqlalchemy import text
 from app.models.database import SessionLocal
@@ -142,6 +143,55 @@ def process_file_upload(zip_path: str) -> Dict[str, Any]:
     Returns:
         Dicionário com resultado do processamento
     """
+    async def process_table(table, files, temp_dir):
+        try:
+            data_file = os.path.join(temp_dir, files['data_file'])
+            layout_file = os.path.join(temp_dir, files['layout_file'])
+            
+            # Lê layout
+            layout_columns = parse_layout_file(layout_file)
+            if not layout_columns:
+                return {
+                    'table': table,
+                    'status': 'error',
+                    'message': 'Falha ao interpretar arquivo de layout'
+                }
+            
+            # Valida schema do banco de dados
+            if not validate_database_schema(table, layout_columns):
+                return {
+                    'table': table,
+                    'status': 'error',
+                    'message': 'Estrutura da tabela incompatível com o layout'
+                }
+            
+            # Valida dados de largura fixa
+            if not validate_fixed_width_data(data_file, layout_columns):
+                return {
+                    'table': table,
+                    'status': 'error',
+                    'message': 'Dados inválidos no arquivo'
+                }
+            
+            # Converte dados para lista de registros
+            records = parse_fixed_width_data(data_file, layout_columns)
+            
+            # Insere registros no banco
+            success = await insert_records_safely(table, records)
+            
+            return {
+                'table': table,
+                'status': 'success' if success else 'error',
+                'message': 'Processamento concluído com sucesso' if success else 'Falha ao inserir registros'
+            }
+        
+        except Exception as e:
+            return {
+                'table': table,
+                'status': 'error',
+                'message': f'Erro inesperado: {str(e)}'
+            }
+
     try:
         # Extrai arquivos do ZIP e encontra correspondências
         extraction_result = extract_zip_file(zip_path)
@@ -158,58 +208,17 @@ def process_file_upload(zip_path: str) -> Dict[str, Any]:
             "unmatched_files": extraction_result['unmatched_files']
         }
         
-        # Processa cada tabela correspondida
-        for table, files in extraction_result.get('matched_tables', {}).items():
-            try:
-                data_file = os.path.join(extraction_result['temp_dir'], files['data_file'])
-                layout_file = os.path.join(extraction_result['temp_dir'], files['layout_file'])
-                
-                # Lê layout
-                layout_columns = parse_layout_file(layout_file)
-                if not layout_columns:
-                    results['processed_tables'].append({
-                        'table': table,
-                        'status': 'error',
-                        'message': 'Falha ao interpretar arquivo de layout'
-                    })
-                    continue
-                
-                # Valida schema do banco de dados
-                if not validate_database_schema(table, layout_columns):
-                    results['processed_tables'].append({
-                        'table': table,
-                        'status': 'error',
-                        'message': 'Estrutura da tabela incompatível com o layout'
-                    })
-                    continue
-                
-                # Valida dados de largura fixa
-                if not validate_fixed_width_data(data_file, layout_columns):
-                    results['processed_tables'].append({
-                        'table': table,
-                        'status': 'error',
-                        'message': 'Dados inválidos no arquivo'
-                    })
-                    continue
-                
-                # Converte dados para lista de registros
-                records = parse_fixed_width_data(data_file, layout_columns)
-                
-                # Insere registros no banco
-                success = insert_records_safely(table, records)
-                
-                results['processed_tables'].append({
-                    'table': table,
-                    'status': 'success' if success else 'error',
-                    'message': 'Processamento concluído com sucesso' if success else 'Falha ao inserir registros'
-                })
+        # Processa cada tabela correspondida de forma assíncrona
+        async def process_matched_tables():
+            tasks = []
+            for table, files in extraction_result.get('matched_tables', {}).items():
+                task = asyncio.create_task(process_table(table, files, extraction_result['temp_dir']))
+                tasks.append(task)
             
-            except Exception as e:
-                results['processed_tables'].append({
-                    'table': table,
-                    'status': 'error',
-                    'message': f'Erro inesperado: {str(e)}'
-                })
+            results['processed_tables'] = await asyncio.gather(*tasks)
+        
+        # Roda o processamento assíncrono
+        asyncio.run(process_matched_tables())
         
         # Remove diretório temporário
         remove_temp_dir(extraction_result['temp_dir'])

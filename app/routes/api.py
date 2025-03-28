@@ -3,6 +3,7 @@ from app.services.file_processor import process_file_upload
 from app.services.error_handler import ErrorHandler
 import tempfile
 import os
+import asyncio
 
 # Cria um Blueprint para as rotas da API
 api_bp = Blueprint('api', __name__)
@@ -36,7 +37,7 @@ def upload_file():
     file.save(temp_zip)
     
     try:
-        # Processa o arquivo
+        # Processa o arquivo de forma síncrona
         result = process_file_upload(temp_zip)
         return jsonify(result)
     

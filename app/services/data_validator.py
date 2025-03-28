@@ -145,79 +145,132 @@ def validate_database_schema(table_name: str, layout_columns: List[Dict[str, Any
         logger.error(f"Erro na validação do schema: {str(e)}")
         return False
 
-def validate_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, Any]]) -> bool:
+def validate_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, Any]], encoding: str = None) -> bool:
     """
     Valida o arquivo de dados de largura fixa.
     
     Args:
         data_file_path: Caminho do arquivo de dados
         layout_columns: Informações do layout
+        encoding: Encoding do arquivo (opcional)
         
     Returns:
         Booleano indicando se os dados estão no formato correto
     """
-    try:
-        with open(data_file_path, 'r', encoding='utf-8') as file:
-            for line_num, line in enumerate(file, 1):
-                # Remove newline e verifica comprimento total
-                line = line.rstrip('\n')
-                total_expected_length = int(layout_columns[-1]['Fim'])
-                
-                if len(line) != total_expected_length:
-                    logger.error(f"Linha {line_num}: Comprimento incorreto. Esperado {total_expected_length}, encontrado {len(line)}")
-                    return False
-                
-                # Valida cada coluna
-                for col in layout_columns:
-                    start = int(col['Inicio']) - 1
-                    end = int(col['Fim'])
-                    value = line[start:end]
-                    
-                    # Validações específicas por tipo
-                    if col['Tipo'] == 'NUMBER':
-                        try:
-                            float(value.strip())
-                        except ValueError:
-                            logger.error(f"Linha {line_num}, Coluna {col['Coluna']}: Valor não numérico")
-                            return False
-        
-        return True
+    # Lista de possíveis encodings para tentar
+    possible_encodings = [
+        encoding,  # Primeiro, tenta o encoding fornecido
+        'utf-8', 
+        'iso-8859-1', 
+        'windows-1252', 
+        'latin1'
+    ]
     
-    except Exception as e:
-        logger.error(f"Erro na validação dos dados: {str(e)}")
-        return False
+    # Remove None do início da lista
+    possible_encodings = [enc for enc in possible_encodings if enc is not None]
+    
+    for current_encoding in possible_encodings:
+        try:
+            with open(data_file_path, 'r', encoding=current_encoding) as file:
+                for line_num, line in enumerate(file, 1):
+                    # Remove newline e verifica comprimento total
+                    line = line.rstrip('\n')
+                    total_expected_length = int(layout_columns[-1]['Fim'])
+                    
+                    if len(line) != total_expected_length:
+                        logger.error(f"Linha {line_num}: Comprimento incorreto. Esperado {total_expected_length}, encontrado {len(line)}")
+                        return False
+                    
+                    # Valida cada coluna
+                    for col in layout_columns:
+                        start = int(col['Inicio']) - 1
+                        end = int(col['Fim'])
+                        value = line[start:end]
+                        
+                        # Validações específicas por tipo
+                        if col['Tipo'] == 'NUMBER':
+                            try:
+                                float(value.strip())
+                            except ValueError:
+                                logger.error(f"Linha {line_num}, Coluna {col['Coluna']}: Valor não numérico")
+                                return False
+            
+            # Se chegou até aqui, a validação com este encoding foi bem-sucedida
+            if current_encoding != encoding:
+                logger.info(f"Usando encoding: {current_encoding}")
+            return True
+        
+        except UnicodeDecodeError:
+            # Continua para o próximo encoding se houver erro de decodificação
+            continue
+        except Exception as e:
+            logger.error(f"Erro na validação dos dados: {str(e)}")
+            return False
+    
+    # Se nenhum encoding funcionou
+    logger.error("Não foi possível decodificar o arquivo com os encodings testados")
+    return False
 
-def parse_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def parse_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, Any]], encoding: str = None) -> List[Dict[str, Any]]:
     """
     Converte arquivo de largura fixa para lista de dicionários.
     
     Args:
         data_file_path: Caminho do arquivo de dados
         layout_columns: Informações do layout
+        encoding: Encoding do arquivo (opcional)
         
     Returns:
         Lista de dicionários com os registros
     """
-    records = []
+    # Lista de possíveis encodings para tentar
+    possible_encodings = [
+        encoding,  # Primeiro, tenta o encoding fornecido
+        'utf-8', 
+        'iso-8859-1', 
+        'windows-1252', 
+        'latin1'
+    ]
     
-    with open(data_file_path, 'r', encoding='utf-8') as file:
-        for line in file:
-            record = {}
-            for col in layout_columns:
-                start = int(col['Inicio']) - 1
-                end = int(col['Fim'])
-                value = line[start:end].strip()
-                
-                # Conversão de tipos
-                if col['Tipo'] == 'NUMBER':
-                    value = float(value) if value else None
-                elif col['Tipo'] == 'VARCHAR2':
-                    value = value
-                elif col['Tipo'] == 'CHAR':
-                    value = value
-                
-                record[col['Coluna']] = value
+    # Remove None do início da lista
+    possible_encodings = [enc for enc in possible_encodings if enc is not None]
+    
+    for current_encoding in possible_encodings:
+        try:
+            records = []
             
-            records.append(record)
+            with open(data_file_path, 'r', encoding=current_encoding) as file:
+                for line in file:
+                    record = {}
+                    for col in layout_columns:
+                        start = int(col['Inicio']) - 1
+                        end = int(col['Fim'])
+                        value = line[start:end].strip()
+                        
+                        # Conversão de tipos
+                        if col['Tipo'] == 'NUMBER':
+                            value = float(value) if value else None
+                        elif col['Tipo'] == 'VARCHAR2':
+                            value = value
+                        elif col['Tipo'] == 'CHAR':
+                            value = value
+                        
+                        record[col['Coluna']] = value
+                    
+                    records.append(record)
+            
+            # Se chegou até aqui, a validação com este encoding foi bem-sucedida
+            if current_encoding != encoding:
+                logger.info(f"Usando encoding: {current_encoding}")
+            return records
+        
+        except UnicodeDecodeError:
+            # Continua para o próximo encoding se houver erro de decodificação
+            continue
+        except Exception as e:
+            logger.error(f"Erro na interpretação dos dados: {str(e)}")
+            return []
     
-    return records
+    # Se nenhum encoding funcionou
+    logger.error("Não foi possível decodificar o arquivo com os encodings testados")
+    return []
