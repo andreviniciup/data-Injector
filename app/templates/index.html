@@ -6,7 +6,120 @@
     <title>Upload de Arquivo ZIP</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos anteriores mantidos */
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f6fa;
+            color: #2d3436;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #636e72;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #2d3436;
+            font-weight: 600;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #dfe6e9;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0769b5;
+        }
+
+        button:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #dfe6e9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #00b894;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #636e72;
+        }
+
+        .message {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background-color: #55efc4;
+            color: #00b894;
+        }
+
+        .error-message {
+            background-color: #ff7675;
+            color: #d63031;
+        }
+
         .results-container {
             max-width: 600px;
             margin: 20px auto;
@@ -15,25 +128,50 @@
             padding: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .table-result {
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 5px;
         }
+
         .table-result.success {
             background-color: #d4edda;
             color: #155724;
         }
+
         .table-result.error {
             background-color: #f8d7da;
             color: #721c24;
         }
+
         .unmatched-files {
             background-color: #fff3cd;
             color: #856404;
             padding: 10px;
             border-radius: 5px;
             margin-top: 20px;
+        }
+
+        .processing-indicator {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .processing-indicator .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0984e3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -45,8 +183,21 @@
     <form id="uploadForm" enctype="multipart/form-data">
         <label for="file">Selecione o arquivo ZIP:</label>
         <input type="file" name="file" id="file" accept=".zip" required>
-        <button type="submit">Enviar</button>
+        <button type="submit" id="submitButton">Enviar</button>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
+        </div>
     </form>
+
+    <div class="processing-indicator" id="processingIndicator">
+        <div class="spinner"></div>
+        <div>Processando arquivo...</div>
+    </div>
+
     <div id="message" class="message"></div>
     <div id="resultsContainer" class="results-container" style="display:none;">
         <h2>Resultados do Processamento</h2>
@@ -60,6 +211,11 @@
 
             const formData = new FormData();
             const fileInput = document.getElementById('file');
+            const submitButton = document.getElementById('submitButton');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const processingIndicator = document.getElementById('processingIndicator');
             const messageDiv = document.getElementById('message');
             const resultsContainer = document.getElementById('resultsContainer');
             const processedTablesDiv = document.getElementById('processedTables');
@@ -68,60 +224,99 @@
             // Reset previous results
             messageDiv.textContent = '';
             messageDiv.className = 'message';
+            messageDiv.style.display = 'none';
             processedTablesDiv.innerHTML = '';
             unmatchedFilesDiv.innerHTML = '';
             resultsContainer.style.display = 'none';
 
+            // Show progress container and disable submit button
+            progressContainer.style.display = 'block';
+            submitButton.disabled = true;
+
             formData.append('file', fileInput.files[0]);
 
             try {
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                });
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/upload', true);
 
-                const result = await response.json();
-
-                if (result.success) {
-                    messageDiv.textContent = 'Upload processado com sucesso';
-                    messageDiv.className = 'message success';
-
-                    // Display processed tables
-                    if (result.details.processed_tables) {
-                        result.details.processed_tables.forEach(table => {
-                            const tableDiv = document.createElement('div');
-                            tableDiv.className = `table-result ${table.status}`;
-                            tableDiv.innerHTML = `
-                                <strong>Tabela: ${table.table}</strong><br>
-                                Status: ${table.status === 'success' ? 'Processada com sucesso' : 'Erro'}
-                                ${table.status !== 'success' ? `<br>Mensagem: ${table.message}` : ''}
-                            `;
-                            processedTablesDiv.appendChild(tableDiv);
-                        });
+                xhr.upload.onprogress = function(e) {
+                    if (e.lengthComputable) {
+                        const percentComplete = (e.loaded / e.total) * 100;
+                        progressBar.style.width = percentComplete + '%';
+                        progressText.textContent = Math.round(percentComplete) + '%';
                     }
+                };
 
-                    // Display unmatched files
-                    if (result.details.unmatched_files && result.details.unmatched_files.length > 0) {
-                        const unmatchedDiv = document.createElement('div');
-                        unmatchedDiv.className = 'unmatched-files';
-                        unmatchedDiv.innerHTML = `
-                            <strong>Arquivos não correspondidos:</strong><br>
-                            ${result.details.unmatched_files.join(', ')}
-                        `;
-                        unmatchedFilesDiv.appendChild(unmatchedDiv);
+                xhr.onload = async function() {
+                    progressContainer.style.display = 'none';
+                    processingIndicator.style.display = 'block';
+
+                    if (xhr.status === 200) {
+                        const result = JSON.parse(xhr.responseText);
+
+                        processingIndicator.style.display = 'none';
+                        submitButton.disabled = false;
+
+                        if (result.success) {
+                            messageDiv.textContent = 'Upload processado com sucesso';
+                            messageDiv.className = 'message success';
+
+                            // Display processed tables
+                            if (result.details.processed_tables) {
+                                result.details.processed_tables.forEach(table => {
+                                    const tableDiv = document.createElement('div');
+                                    tableDiv.className = `table-result ${table.status}`;
+                                    tableDiv.innerHTML = `
+                                        <strong>Tabela: ${table.table}</strong><br>
+                                        Status: ${table.status === 'success' ? 'Processada com sucesso' : 'Erro'}
+                                        ${table.status !== 'success' ? `<br>Mensagem: ${table.message}` : ''}
+                                    `;
+                                    processedTablesDiv.appendChild(tableDiv);
+                                });
+                            }
+
+                            // Display unmatched files
+                            if (result.details.unmatched_files && result.details.unmatched_files.length > 0) {
+                                const unmatchedDiv = document.createElement('div');
+                                unmatchedDiv.className = 'unmatched-files';
+                                unmatchedDiv.innerHTML = `
+                                    <strong>Arquivos não correspondidos:</strong><br>
+                                    ${result.details.unmatched_files.join(', ')}
+                                `;
+                                unmatchedFilesDiv.appendChild(unmatchedDiv);
+                            }
+
+                            resultsContainer.style.display = 'block';
+                        } else {
+                            messageDiv.textContent = result.message;
+                            messageDiv.className = 'message error-message';
+                        }
+                    } else {
+                        messageDiv.textContent = 'Erro ao processar o arquivo. Tente novamente.';
+                        messageDiv.className = 'message error-message';
+                        submitButton.disabled = false;
                     }
+                    messageDiv.style.display = 'block';
+                };
 
-                    resultsContainer.style.display = 'block';
-                } else {
-                    messageDiv.textContent = result.message;
+                xhr.onerror = function() {
+                    progressContainer.style.display = 'none';
+                    processingIndicator.style.display = 'none';
+                    messageDiv.textContent = 'Erro na conexão. Tente novamente.';
                     messageDiv.className = 'message error-message';
-                }
+                    messageDiv.style.display = 'block';
+                    submitButton.disabled = false;
+                };
+
+                xhr.send(formData);
             } catch (error) {
+                progressContainer.style.display = 'none';
+                processingIndicator.style.display = 'none';
                 messageDiv.textContent = 'Erro ao processar o arquivo. Tente novamente.';
                 messageDiv.className = 'message error-message';
+                messageDiv.style.display = 'block';
+                submitButton.disabled = false;
             }
-
-            messageDiv.style.display = 'block';
         });
     </script>
 </body>
