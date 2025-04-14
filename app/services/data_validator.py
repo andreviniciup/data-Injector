@@ -231,41 +231,71 @@ def parse_fixed_width_data(data_file_path: str, layout_columns: List[Dict[str, A
     # Remove None do início da lista
     possible_encodings = [enc for enc in possible_encodings if enc is not None]
     
+    successful_encoding = None
+    
     for current_encoding in possible_encodings:
         try:
             records = []
             
             with open(data_file_path, 'r', encoding=current_encoding) as file:
-                for line in file:
+                for line_num, line in enumerate(file, 1):
+                    # Remove quebras de linha e espaços extras
+                    line = line.rstrip('\n')
+                    
+                    # Verifica se a linha tem o comprimento esperado
+                    expected_length = int(layout_columns[-1]['Fim'])
+                    if len(line) != expected_length:
+                        logger.warning(f"Linha {line_num}: Comprimento incorreto. Esperado {expected_length}, encontrado {len(line)}")
+                        # Ajusta a linha se for muito curta (preenche com espaços)
+                        if len(line) < expected_length:
+                            line = line.ljust(expected_length)
+                        # Trunca se for muito longa
+                        if len(line) > expected_length:
+                            line = line[:expected_length]
+                    
                     record = {}
                     for col in layout_columns:
                         start = int(col['Inicio']) - 1
                         end = int(col['Fim'])
-                        value = line[start:end].strip()
                         
-                        # Conversão de tipos
-                        if col['Tipo'] == 'NUMBER':
-                            value = float(value) if value else None
-                        elif col['Tipo'] == 'VARCHAR2':
-                            value = value
-                        elif col['Tipo'] == 'CHAR':
-                            value = value
+                        # Garante que os índices estão dentro dos limites
+                        if start >= len(line):
+                            value = ''
+                        elif end > len(line):
+                            value = line[start:].strip()
+                        else:
+                            value = line[start:end].strip()
+                        
+                        # Conversão de tipos consistente
+                        if col['Tipo'].startswith('NUMBER'):
+                            # Trata valores vazios como None
+                            if not value:
+                                value = None
+                            else:
+                                try:
+                                    # Remove caracteres não numéricos
+                                    clean_value = re.sub(r'[^0-9.-]', '', value)
+                                    value = float(clean_value) if clean_value else None
+                                except ValueError:
+                                    logger.warning(f"Linha {line_num}, Coluna {col['Coluna']}: Valor não numérico '{value}', convertendo para None")
+                                    value = None
                         
                         record[col['Coluna']] = value
                     
                     records.append(record)
             
-            # Se chegou até aqui, a validação com este encoding foi bem-sucedida
-            if current_encoding != encoding:
-                logger.info(f"Usando encoding: {current_encoding}")
+            # Se chegou até aqui, a leitura com este encoding foi bem-sucedida
+            successful_encoding = current_encoding
+            logger.info(f"Arquivo lido com sucesso usando encoding: {current_encoding}")
+            logger.info(f"Total de registros lidos: {len(records)}")
             return records
         
         except UnicodeDecodeError:
             # Continua para o próximo encoding se houver erro de decodificação
             continue
         except Exception as e:
-            logger.error(f"Erro na interpretação dos dados: {str(e)}")
-            return []
+            logger.error(f"Erro na interpretação dos dados com encoding {current_encoding}: {str(e)}")
+            continue
     
     # Se nenhum encoding funcionou
     logger.error("Não foi possível decodificar o arquivo com os encodings testados")
