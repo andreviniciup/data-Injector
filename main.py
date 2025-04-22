@@ -1,5 +1,5 @@
 from app import create_app
-from config import FLASK_PORT
+from config import FLASK_PORT, DEBUG
 
 app = create_app()
 
