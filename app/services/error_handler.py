@@ -16,15 +16,13 @@ class ErrorHandler:
     def __init__(self):
         self.error_log = []
 
-    def log_error(self, message: str):
-        """
-        Registra um erro no log e na lista de erros.
-        
-        Args:
-            message: Mensagem de erro.
-        """
+    def log_error(error, sensitive_data=None):
+        """Log de erros sem expor dados sensíveis"""
+        logger = logging.getLogger('security')
+        message = f"Erro: {type(error).__name__}"
+        if sensitive_data:
+            message += f" (Dados: REDACTED)"  # Não loga dados reais
         logger.error(message)
-        self.error_log.append(message)
 
     def get_error_log(self) -> List[str]:
         """

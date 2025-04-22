@@ -9,6 +9,22 @@ from config import DATABASE_SCHEMA
 logger = logging.getLogger("DataValidator")
 
 
+def sanitize_input(input_data):
+    """Remove caracteres perigosos para SQL/HTML"""
+    if isinstance(input_data, str):
+        # Remove caracteres especiais perigosos
+        sanitized = re.sub(r'[;\'"\\<>(){}[\]=+]', '', input_data)
+        return sanitized.strip()
+    return input_data
+
+def validate_file_extension(filename, allowed_extensions=None):
+    """Valida extensões de arquivo"""
+    allowed_extensions = allowed_extensions or {'txt', 'csv', 'pdf'}
+    if '.' not in filename:
+        return False
+    ext = filename.rsplit('.', 1)[1].lower()
+    return ext in allowed_extensions
+
 def validate_database_schema(table_name: str, layout_columns: List[Dict[str, Any]]) -> bool:
     """
     Valida se o layout corresponde à estrutura da tabela no banco de dados.

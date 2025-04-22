@@ -1,16 +1,14 @@
-from flask import Flask
-from config import DATABASE_URL
+from flask import Flask, jsonify
 
-def create_app():
-    """
-    Factory function para criar e configurar a aplicação Flask.
-    """
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app = Flask(__name__)
 
-    # Registrar blueprints (rotas)
-    from app.routes.api import api_bp
-    app.register_blueprint(api_bp)
-
-    return app
+@app.after_request
+def add_security_headers(response):
+    headers = {
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'Content-Security-Policy': "default-src 'self'",
+        'Referrer-Policy': 'strict-origin-when-cross-origin'
+    }
+    response.headers.update(headers)
+    return response

@@ -3,6 +3,7 @@ import zipfile
 import tempfile
 import logging
 import asyncio
+from werkzeug.utils import secure_filename
 from typing import Tuple, Optional, List, Dict, Any
 from sqlalchemy import text
 from app.models.database import SessionLocal
@@ -153,3 +154,19 @@ def process_file_upload(zip_path: str) -> Dict[str, Any]:
     except Exception as e:
         logger.error(f"Erro geral: {str(e)}")
         return {"success": False, "message": str(e)}
+    
+def save_uploaded_file(file, upload_folder='uploads'):
+    """Salva arquivos com validações"""
+    # Cria diretório seguro
+    os.makedirs(upload_folder, exist_ok=True)
+
+    # Nome seguro do arquivo
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(upload_folder, filename)
+
+    # Valida caminho (evita directory traversal)
+    if not os.path.abspath(filepath).startswith(os.path.abspath(upload_folder)):
+        raise ValueError("Caminho inválido")
+
+    file.save(filepath)
+    return filepath
